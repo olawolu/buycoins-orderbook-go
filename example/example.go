@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/youthtrouble/orderbooks"
+	"github.com/buycoinsresearch/orderbooks"
 	"github.com/joho/godotenv"
 	"os"
 	"log"

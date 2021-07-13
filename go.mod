@@ -1,4 +1,4 @@
-module github.com/youthtrouble/orderbooks
+module github.com/buycoinsresearch/orderbooks
 
 go 1.16
 
