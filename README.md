@@ -9,7 +9,7 @@ A library for the buycoins orderbooks API.
 ### Install Package
 
 ```bash
-go get github.com/youthtrouble/orderbooks
+go get github.com/buycoinsresearch/orderbooks
 ```
 
 ### Buycoins Orderbooks
@@ -20,7 +20,7 @@ go get github.com/youthtrouble/orderbooks
 package main
 
 import (
-	"github.com/youthtrouble/orderbooks"
+	"github.com/buycoinsresearch/orderbooks"
 )
 
 var authorize = orderbooks.Buycoins(blahburibdblahbeubblah, blahblahblah)
