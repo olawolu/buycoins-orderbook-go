@@ -1,4 +1,4 @@
-module github.com/buycoinsresearch/orderbooks
+module github.com/buycoinsresearch/buycoins-orderbook-go
 
 go 1.16
 
