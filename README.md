@@ -147,7 +147,11 @@ func main () {
 ### Post Market Order 
 Buycoins API documentation reference- https://developers.buycoins.africa/orderbook-trading/post-market-order#placing-a-market-order
 
-The function PostProMarketOrder takes in three parameters- The [currency pair](https://developers.buycoins.africa/orderbook-trading/glossary#1-currency-pair-market), The quantity of the currency you wish to buy or sell,  and the order side: `buy` or `sell`.
+The function PostProMarketOrder takes in three parameters
+- The [currency pair](https://developers.buycoins.africa/orderbook-trading/glossary#1-currency-pair-market) 
+- The quantity of the currency you wish to buy or sell  
+- The order side: `buy` or `sell`.
+
 ```go
 ...
 
@@ -164,7 +168,12 @@ func main () {
 Buycoins API reference- https://developers.buycoins.africa/orderbook-trading/post-limit-order
 
 It is important to really [understand what limit  orders are](https://help.buycoins.africa/article/hwdaszt3ew-how-to-place-a-sell-limit-order), how they differ from market orders and the intricacies of posting limit orders to be able to make well informed decisions.
-The function PostProLimitOrder takes in five parameters- The [currency pair](https://developers.buycoins.africa/orderbook-trading/glossary#1-currency-pair-market), Quantity of the currency you wish to buy or sell, the exact amount at which you want the order to be executed, the order side: `buy` or `sell` and the [Time in force](https://developers.buycoins.africa/orderbook-trading/glossary#2-time-in-force): `fill_or_kill` or `good_til_cancelled`.
+The function PostProLimitOrder takes in five parameters
+- The [currency pair](https://developers.buycoins.africa/orderbook-trading/glossary#1-currency-pair-market)
+- Quantity of the currency you wish to buy or sell 
+- The exact amount at which you want the order to be executed
+- The order side: `buy` or `sell` 
+- The [Time in force](https://developers.buycoins.africa/orderbook-trading/glossary#2-time-in-force): `fill_or_kill` or `good_til_cancelled`.
 
 ```go
 ...
