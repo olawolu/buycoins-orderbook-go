@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/buycoinsresearch/orderbooks"
+	"github.com/buycoinsresearch/buycoins-orderbook-go"
 	"github.com/joho/godotenv"
 	"os"
 	"log"
