@@ -2,6 +2,8 @@
 
 A library for the Buycoins [orderbooks](https://help.buycoins.africa/article/k0r0ayjfh7-order-books-explained) API.
 
+API documentation- https://developers.buycoins.africa/orderbook-trading/introduction
+
 ---
 
 ## Installation
