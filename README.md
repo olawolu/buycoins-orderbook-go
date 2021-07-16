@@ -42,6 +42,8 @@ The GetOrders function takes in three parameters:
 - order _status: Either `pending`, `in_progress`, `cancelled`, `partially_filled`, `successful`, or `failed`.
 - side: The order side either `buy` or `sell`.
 
+Example:
+
 ```go
 ...
 
@@ -114,6 +116,8 @@ Buycoins API documentation reference- https://developers.buycoins.africa/orderbo
 
 The CancelOrder function takes in the order ID of the order you wish to cancel and should return an order status `cancelled`.
 
+Example:
+
 ```go
 ...
 
@@ -150,7 +154,9 @@ Buycoins API documentation reference- https://developers.buycoins.africa/orderbo
 The function PostProMarketOrder takes in three parameters
 - The [currency pair](https://developers.buycoins.africa/orderbook-trading/glossary#1-currency-pair-market) 
 - The quantity of the currency you wish to buy or sell  
-- The order side: `buy` or `sell`.
+- The order side: `buy` or `sell`
+
+Example:
 
 ```go
 ...
@@ -174,6 +180,8 @@ The function PostProLimitOrder takes in five parameters
 - The exact amount at which you want the order to be executed
 - The order side: `buy` or `sell` 
 - The [Time in force](https://developers.buycoins.africa/orderbook-trading/glossary#2-time-in-force): `fill_or_kill` or `good_til_cancelled`.
+
+Example:
 
 ```go
 ...
