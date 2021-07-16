@@ -59,7 +59,7 @@ func main () {
 
 This returns an array of all orders based on the parameters provided.
 Example:
-```bash
+```json
 {
   "data": {
     "getProOrders": {
