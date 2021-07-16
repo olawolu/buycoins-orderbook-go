@@ -151,10 +151,10 @@ func main () {
 ### Post Market Order 
 Buycoins API documentation reference- https://developers.buycoins.africa/orderbook-trading/post-market-order#placing-a-market-order
 
-The function PostProMarketOrder takes in three parameters
-- The [currency pair](https://developers.buycoins.africa/orderbook-trading/glossary#1-currency-pair-market) 
-- The quantity of the currency you wish to buy or sell  
-- The order side: `buy` or `sell`
+The function PostProMarketOrder takes in three parameters:
+- The [currency pair](https://developers.buycoins.africa/orderbook-trading/glossary#1-currency-pair-market).
+- The quantity of the currency you wish to buy or sell. 
+- The order side: `buy` or `sell`.
 
 Example:
 
