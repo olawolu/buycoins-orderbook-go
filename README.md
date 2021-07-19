@@ -35,6 +35,25 @@ var authorize = orderbooks.Buycoins("public_key", "secret_key")
 
 ## Usage
 
+### Get pairs
+Buycoins API documentation reference- https://developers.buycoins.africa/orderbook-trading/glossary#1-currency-pair-market
+
+This returns an array of the currency pairs currently supported on Buycoins Pro.
+
+Example:
+```go
+...
+
+func main () {
+    getPairs, err := authorize.GetPairs()
+	if err != nil {
+		log.Println(err)
+	}
+
+	fmt.Printf("%s\n", getPairs)
+}
+```
+
 
 ### Get orders
 Buycoins API documentation reference- https://developers.buycoins.africa/orderbook-trading/get-orders
