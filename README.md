@@ -135,7 +135,7 @@ Example:
 ### Cancel order
 Buycoins API documentation reference- https://developers.buycoins.africa/orderbook-trading/cancel-order
 
-The CancelOrder function takes in the order ID of the order you wish to cancel and should return an order status `cancelled`.
+The CancelOrder function takes in the order ID of the order you wish to cancel and should return "order status": `cancelled`.
 
 Example:
 
@@ -195,7 +195,7 @@ func main () {
 Buycoins API reference- https://developers.buycoins.africa/orderbook-trading/post-limit-order
 
 It is important to really [understand what limit  orders are](https://help.buycoins.africa/article/hwdaszt3ew-how-to-place-a-sell-limit-order), how they differ from market orders and the intricacies of posting limit orders to be able to make well informed decisions.
-The function PostProLimitOrder takes in five parameters
+The function PostProLimitOrder takes in five parameters:
 - The [currency pair](https://developers.buycoins.africa/orderbook-trading/glossary#1-currency-pair-market)
 - Quantity of the currency you wish to buy or sell 
 - The exact amount at which you want the order to be executed
