@@ -155,7 +155,7 @@ func main () {
 ### Estimate order fees
 Buycoins API documentation reference- https://developers.buycoins.africa/orderbook-trading/post-market-order#estimating-a-market-orders-fees
 
-To get an estimate of how much placing a market order will cost:
+To get an estimate of how much placing a market order would cost:
 ```go
 ...
 
