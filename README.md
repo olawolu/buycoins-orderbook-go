@@ -14,7 +14,7 @@ go get github.com/buycoinsresearch/buycoins-orderbook-go
 ---
 
 ## Authentication
-To access the Buycoins API, you will need to generate your API credentials(a public key and a secret key) in the API Settings on the Buycoins app. At the mmoment, this is only open to fully verified Buycoins users. To be granted API access, please send an email to [support@buycoins.africa](mailto:support@buycoins.africa)
+To access the Buycoins API, you will need to generate your API credentials(a public key and a secret key) in the API Settings on the Buycoins app. At the moment, this is only open to fully verified Buycoins users. To be granted API access, please send an email to [support@buycoins.africa](mailto:support@buycoins.africa)
 
 You should pass in your API keys as strings to the `Buycoins` function as shown here:
 
@@ -191,7 +191,7 @@ func main () {
 	fmt.Printf("%+v\n", postProMarketOrder)
 }
 ```
-### Post Liimit Order 
+### Post Limit Order 
 Buycoins API reference- https://developers.buycoins.africa/orderbook-trading/post-limit-order
 
 It is important to really [understand what limit  orders are](https://help.buycoins.africa/article/hwdaszt3ew-how-to-place-a-sell-limit-order), how they differ from market orders and the intricacies of posting limit orders to be able to make well informed decisions.
