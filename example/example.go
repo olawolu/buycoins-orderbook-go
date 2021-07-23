@@ -24,6 +24,13 @@ func main() {
 
 	authorize := orderbooks.Buycoins(os.Getenv("PUBLIC_KEY"), os.Getenv("SECRET_KEY"))
 
+	getPairs, err := authorize.GetPairs()
+	if err != nil {
+		log.Println(err)
+	}
+
+	fmt.Printf("%s\n", getPairs)
+
 	getOrders, err := authorize.GetOrders("btc_ngnt", "pending", "buy")
 	if err != nil {
 		log.Println(err)

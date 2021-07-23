@@ -23,6 +23,27 @@ func Buycoins(publicKey, secretKey string) configCredentials {
 	}
 }
 
+func (config configCredentials) GetPairs() ([]string, error) {
+	client := graphql.NewClient(endpoint)
+	req:= graphql.NewRequest(`
+		query {
+			getPairs
+		}
+	`)
+
+	req.Header.Set("Authorization", config.basicAuth)
+	ctx := context.Background()
+	res := struct {
+		GetPairs []string
+	}{}
+
+	var err error
+	if err = client.Run(ctx, req, &res); err != nil {
+		log.Fatal(err)
+	}
+	return res.GetPairs, nil
+}
+
 func (config configCredentials) GetOrders(coinPair, status, side string) (getProOrders, error) {
 	client := graphql.NewClient(endpoint)
 	req := graphql.NewRequest(`
