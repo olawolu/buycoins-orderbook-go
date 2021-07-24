@@ -35,6 +35,11 @@ var authorize = orderbooks.Buycoins("public_key", "secret_key")
 
 ## Usage
 
+### Stream Orderbook
+Buycoins API documentation reference- https://developers.buycoins.africa/orderbook-trading/stream-order-book
+
+The order book is a live computerized list of buy and sell orders organized by price level for a particular asset (in this context, cryptocurrencies). By connecting to the order book WebSockets API, you can get real-time updates on the Buycoins order book.
+
 ### Get pairs
 Buycoins API documentation reference- https://developers.buycoins.africa/orderbook-trading/glossary#1-currency-pair-market
 
