@@ -3,6 +3,7 @@ package orderbooks
 import (
 	"context"
 	b64 "encoding/base64"
+	"encoding/json"
 	"fmt"
 
 	"log"
@@ -23,9 +24,9 @@ func Buycoins(publicKey, secretKey string) configCredentials {
 	}
 }
 
-func (config configCredentials) GetPairs() ([]string, error) {
+func (config configCredentials) GetPairs() ([]byte, error) {
 	client := graphql.NewClient(endpoint)
-	req:= graphql.NewRequest(`
+	req := graphql.NewRequest(`
 		query {
 			getPairs
 		}
@@ -34,14 +35,20 @@ func (config configCredentials) GetPairs() ([]string, error) {
 	req.Header.Set("Authorization", config.basicAuth)
 	ctx := context.Background()
 	res := struct {
-		GetPairs []string
+		GetPairs []string 
 	}{}
 
 	var err error
 	if err = client.Run(ctx, req, &res); err != nil {
 		log.Fatal(err)
 	}
-	return res.GetPairs, nil
+
+	pairs, err := json.MarshalIndent(res.GetPairs, "", "  ")
+	if err != nil {
+        fmt.Println(err)
+    }
+
+	return pairs, nil
 }
 
 func (config configCredentials) GetOrders(coinPair, status, side string) (getProOrders, error) {
@@ -80,7 +87,7 @@ func (config configCredentials) GetOrders(coinPair, status, side string) (getPro
 	res := struct {
 		GetProOrders struct {
 			Edges []struct {
-				Node  struct {
+				Node struct {
 					Id                     string
 					Pair                   string
 					Price                  string
