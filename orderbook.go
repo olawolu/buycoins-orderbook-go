@@ -110,7 +110,8 @@ func (config configCredentials) GetOrders(coinPair, status, side string) (getPro
 	}{}
 	var err error
 	if err = client.Run(ctx, req, &res); err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return getProOrders{}, err
 	}
 	fmt.Println("Successfully connected")
 
@@ -171,7 +172,8 @@ func (config configCredentials) CancelOrder(id string) (cancelOrder, error) {
 
 	var err error
 	if err = client.Run(ctx, req, &res); err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return cancelOrder{}, err
 	}
 
 	return cancelOrder{
@@ -225,7 +227,8 @@ func (config configCredentials) GetProOrderFees(orderType string, pair string, s
 
 	var err error
 	if err = client.Run(ctx, req, &res); err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return getProOrderFees{}, err
 	}
 
 	return getProOrderFees{
@@ -290,7 +293,8 @@ func (config configCredentials) PostProMarketOrder(pair string, quantity float64
 
 	var err error
 	if err = client.Run(ctx, req, &res); err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return postProMarketOrder{}, err
 	}
 
 	return postProMarketOrder{
@@ -369,7 +373,8 @@ func (config configCredentials) PostProLimitOrder(pair string, quantity float64,
 
 	var err error
 	if err = client.Run(ctx, req, &res); err != nil {
-		log.Fatal(err)
+		log.Println(err)
+		return LimitOrder{}, err
 	}
 
 	return LimitOrder{
