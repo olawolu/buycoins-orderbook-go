@@ -397,7 +397,7 @@ func (config configCredentials) PostProLimitOrder(pair string, quantity float64,
 	}, nil
 }
 
-func (config configCredentials) SendOnChain(cryptocurrency string, amount float64, onChainAddress string) (OnChainTransfer, error) {
+func (config configCredentials) SendOnChain(amount float64, onChainAddress string) (OnChainTransfer, error) {
 	client := graphql.NewClient(endpoint)
 	req := graphql.NewRequest(`
 	mutation{

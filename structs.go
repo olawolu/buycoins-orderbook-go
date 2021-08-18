@@ -88,12 +88,12 @@ type getProOrders struct {
 }
 
 type OnChainTransfer struct {
-	id             string
-	address        string
-	amount         string
-	cryptocurrency string
-	fee            string
-	status         string
+	id              string
+	address         string
+	amount          string
+	cryptocurrency  string
+	fee             string
+	status          string
 	transactionHash string
 	transactionId   string
 }
