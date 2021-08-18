@@ -400,8 +400,8 @@ func (config configCredentials) PostProLimitOrder(pair string, quantity float64,
 func (config configCredentials) SendOnChain(cryptocurrency string, amount float64, onChainAddress string) (OnChainTransfer, error) {
 	client := graphql.NewClient(endpoint)
 	req := graphql.NewRequest(`
-	mutation{
-		send($cryptocurrency: Cryptocurrency!, $amount: BigDecimalApprox!, $address: String!) {
+	mutation($cryptocurrency: Cryptocurrency!, $amount: BigDecimal!, $address: String!) {
+		send(cryptocurrency: $cryptocurrency, amount: $amount, address: $address) {
 		  id
 		  address
 		  amount
@@ -409,7 +409,7 @@ func (config configCredentials) SendOnChain(cryptocurrency string, amount float6
 		  fee
 		  status
 		  transaction {
-			hash
+			txhash
 			id
 		  }
 		}
