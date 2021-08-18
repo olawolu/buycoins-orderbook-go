@@ -65,4 +65,11 @@ func main() {
 	}
 
 	fmt.Printf("%+v\n", postProLimitOrder)
+
+	sendOnchain, err := authorize.SendOnChain("bitcoin", 0.03, "1MmyYvSEYLCPm45Ps6vQin1heGBv3UpNbf")
+	if err != nil {
+		log.Println(err)
+	}
+
+	fmt.Printf("%+v\n", sendOnchain)
 }
