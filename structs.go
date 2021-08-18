@@ -64,7 +64,6 @@ type LimitOrder struct {
 	engineMessage          string
 }
 
-
 type getProOrders struct {
 	Edges []struct {
 		Node struct {
@@ -86,4 +85,15 @@ type getProOrders struct {
 			EngineMessage          string
 		}
 	}
+}
+
+type OnChainTransfer struct {
+	id             string
+	address        string
+	amount         string
+	cryptocurrency string
+	fee            string
+	status         string
+	transactionHash string
+	transactionId   string
 }

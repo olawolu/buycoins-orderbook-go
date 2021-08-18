@@ -35,7 +35,7 @@ func (config configCredentials) GetPairs() ([]byte, error) {
 	req.Header.Set("Authorization", config.basicAuth)
 	ctx := context.Background()
 	res := struct {
-		GetPairs []string 
+		GetPairs []string
 	}{}
 
 	var err error
@@ -45,8 +45,8 @@ func (config configCredentials) GetPairs() ([]byte, error) {
 
 	pairs, err := json.MarshalIndent(res.GetPairs, "", "  ")
 	if err != nil {
-        fmt.Println(err)
-    }
+		fmt.Println(err)
+	}
 
 	return pairs, nil
 }
@@ -394,5 +394,62 @@ func (config configCredentials) PostProLimitOrder(pair string, quantity float64,
 		remainingQuoteQuantity: res.PostProLimitOrder.RemainingQuoteQuantity,
 		meanExecutionPrice:     res.PostProLimitOrder.MeanExecutionPrice,
 		engineMessage:          res.PostProLimitOrder.EngineMessage,
+	}, nil
+}
+
+func (config configCredentials) SendOnChain(cryptocurrency string, amount float64, onChainAddress string) (OnChainTransfer, error) {
+	client := graphql.NewClient(endpoint)
+	req := graphql.NewRequest(`
+	mutation{
+		send(cryptocurrency: bitcoin, $amount: BigDecimalApprox!, $address: String!) {
+		  id
+		  address
+		  amount
+		  cryptocurrency
+		  fee
+		  status
+		  transaction {
+			hash
+			id
+		  }
+		}
+	  }
+	`)
+
+	req.Var("amount", amount)
+	req.Var("address", onChainAddress)
+	req.Header.Set("Authorization", config.basicAuth)
+	ctx := context.Background()
+
+	res := struct {
+		SendOnChain struct {
+			Id             string
+			Address        string
+			Amount         string
+			Cryptocurrency string
+			Fee            string
+			Status         string
+			Transaction    struct {
+				Hash string
+				Id   string
+			}
+		}
+	}{}
+
+	var err error
+	if err = client.Run(ctx, req, &res); err != nil {
+		log.Println(err)
+		return OnChainTransfer{}, err
+	}
+
+	return OnChainTransfer{
+		id:              res.SendOnChain.Id,
+		address:         res.SendOnChain.Address,
+		amount:          res.SendOnChain.Amount,
+		cryptocurrency:  res.SendOnChain.Cryptocurrency,
+		fee:             res.SendOnChain.Fee,
+		status:          res.SendOnChain.Status,
+		transactionHash: res.SendOnChain.Transaction.Hash,
+		transactionId:   res.SendOnChain.Transaction.Id,
 	}, nil
 }
