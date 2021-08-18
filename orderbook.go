@@ -431,7 +431,7 @@ func (config configCredentials) SendOnChain(cryptocurrency string, amount float6
 			Fee            string
 			Status         string
 			Transaction    struct {
-				Hash string
+				Txhash string
 				Id   string
 			}
 		}
@@ -450,7 +450,7 @@ func (config configCredentials) SendOnChain(cryptocurrency string, amount float6
 		cryptocurrency:  res.SendOnChain.Cryptocurrency,
 		fee:             res.SendOnChain.Fee,
 		status:          res.SendOnChain.Status,
-		transactionHash: res.SendOnChain.Transaction.Hash,
+		transactionHash: res.SendOnChain.Transaction.Txhash,
 		transactionId:   res.SendOnChain.Transaction.Id,
 	}, nil
 }
