@@ -89,7 +89,7 @@ type getProOrders struct {
 
 type getDepositLink struct {
 	Amount      string
-	CreatedAt   string
+	CreatedAt   int64
 	Fee         string
 	Id          string
 	Link        string

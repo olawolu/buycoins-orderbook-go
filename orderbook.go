@@ -5,7 +5,6 @@ import (
 	b64 "encoding/base64"
 	"encoding/json"
 	"fmt"
-
 	"log"
 
 	"github.com/machinebox/graphql"
@@ -418,9 +417,9 @@ func (config configCredentials) GetDepositLink(amount float64) (getDepositLink, 
 	req.Header.Set("Authorization", config.basicAuth)
 	ctx := context.Background()
 	res := struct {
-		GetDepositLink struct {
+		CreateSendcashPayDeposit struct {
 			Amount      string
-			CreatedAt   string
+			CreatedAt   int64
 			Fee         string
 			Id          string
 			Link        string
@@ -438,14 +437,14 @@ func (config configCredentials) GetDepositLink(amount float64) (getDepositLink, 
 	log.Println(res)
 
 	return getDepositLink{
-		Amount:      res.GetDepositLink.Amount,
-		CreatedAt:   res.GetDepositLink.CreatedAt,
-		Fee:         res.GetDepositLink.Fee,
-		Id:          res.GetDepositLink.Id,
-		Link:        res.GetDepositLink.Link,
-		Reference:   res.GetDepositLink.Reference,
-		Status:      res.GetDepositLink.Status,
-		TotalAmount: res.GetDepositLink.TotalAmount,
-		Type:        res.GetDepositLink.Type,
+		Amount:      res.CreateSendcashPayDeposit.Amount,
+		CreatedAt:   res.CreateSendcashPayDeposit.CreatedAt,
+		Fee:         res.CreateSendcashPayDeposit.Fee,
+		Id:          res.CreateSendcashPayDeposit.Id,
+		Link:        res.CreateSendcashPayDeposit.Link,
+		Reference:   res.CreateSendcashPayDeposit.Reference,
+		Status:      res.CreateSendcashPayDeposit.Status,
+		TotalAmount: res.CreateSendcashPayDeposit.TotalAmount,
+		Type:        res.CreateSendcashPayDeposit.Type,
 	}, nil
 }
