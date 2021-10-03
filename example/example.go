@@ -65,4 +65,11 @@ func main() {
 	}
 
 	fmt.Printf("%+v\n", postProLimitOrder)
+
+	getDepositLink, err := authorize.GetDepositLink(5000.00)
+	if err != nil {
+		log.Println(err)
+	}
+
+	fmt.Printf("%+v\n", getDepositLink)
 }
