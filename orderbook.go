@@ -35,7 +35,7 @@ func (config configCredentials) GetPairs() ([]byte, error) {
 	req.Header.Set("Authorization", config.basicAuth)
 	ctx := context.Background()
 	res := struct {
-		GetPairs []string 
+		GetPairs []string
 	}{}
 
 	var err error
@@ -45,8 +45,8 @@ func (config configCredentials) GetPairs() ([]byte, error) {
 
 	pairs, err := json.MarshalIndent(res.GetPairs, "", "  ")
 	if err != nil {
-        fmt.Println(err)
-    }
+		fmt.Println(err)
+	}
 
 	return pairs, nil
 }
@@ -394,5 +394,58 @@ func (config configCredentials) PostProLimitOrder(pair string, quantity float64,
 		remainingQuoteQuantity: res.PostProLimitOrder.RemainingQuoteQuantity,
 		meanExecutionPrice:     res.PostProLimitOrder.MeanExecutionPrice,
 		engineMessage:          res.PostProLimitOrder.EngineMessage,
+	}, nil
+}
+
+func (config configCredentials) GetDepositLink(amount float64) (getDepositLink, error) {
+	client := graphql.NewClient(endpoint)
+	req := graphql.NewRequest(`
+		mutation ($amount: BigDecimal!) {
+			createSendCashPayDeposit(amount: $amount){
+				amount
+				createdAt
+				fee
+				id
+				link
+				reference
+				status
+				totalAmount
+				type
+			}
+		}
+	`)
+	req.Var("amount", amount)
+	req.Header.Set("Authorization", config.basicAuth)
+	ctx := context.Background()
+	res := struct {
+		GetDepositLink struct {
+			Amount      string
+			CreatedAt   string
+			Fee         string
+			Id          string
+			Link        string
+			Reference   string
+			Status      string
+			TotalAmount string
+			Type        string
+		}
+	}{}
+	var err error
+	if err = client.Run(ctx, req, &res); err != nil {
+		log.Println(err)
+		return getDepositLink{}, err
+	}
+	log.Println(res)
+
+	return getDepositLink{
+		Amount:      res.GetDepositLink.Amount,
+		CreatedAt:   res.GetDepositLink.CreatedAt,
+		Fee:         res.GetDepositLink.Fee,
+		Id:          res.GetDepositLink.Id,
+		Link:        res.GetDepositLink.Link,
+		Reference:   res.GetDepositLink.Reference,
+		Status:      res.GetDepositLink.Status,
+		TotalAmount: res.GetDepositLink.TotalAmount,
+		Type:        res.GetDepositLink.Type,
 	}, nil
 }
