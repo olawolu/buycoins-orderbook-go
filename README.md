@@ -222,6 +222,25 @@ func main () {
 }
 ```
 
+### Get Deposit Link 
+The function GetDepositLink takes in only one parameter:
+- The amount you wish to deposit.
+
+Example:
+
+```go
+...
+
+func main () {
+  getDepositLink, err := authorize.GetDepositLink(5000.00)
+	if err != nil {
+		log.Println(err)
+	}
+
+	fmt.Printf("%+v\n", getDepositLink)
+```
+
+
 
 >**NOTE**<br/>
 >Please check the `example` directory to see a sample implementation.

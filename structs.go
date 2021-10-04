@@ -64,7 +64,6 @@ type LimitOrder struct {
 	engineMessage          string
 }
 
-
 type getProOrders struct {
 	Edges []struct {
 		Node struct {
@@ -86,4 +85,16 @@ type getProOrders struct {
 			EngineMessage          string
 		}
 	}
+}
+
+type getDepositLink struct {
+	Amount      string
+	CreatedAt   int64
+	Fee         string
+	Id          string
+	Link        string
+	Reference   string
+	Status      string
+	TotalAmount string
+	Type        string
 }
