@@ -339,7 +339,7 @@ func (config configCredentials) GetDepositLink(amount float64) (getDepositLink, 
 }
 
 // Get balance should be used to fetch the balance for one cryptocurrency
-func (config configCredentials) GetBalances(crypto string) (getBalances, error) {
+func (config configCredentials) GetBalance(crypto string) (getBalances, error) {
 	var err error
 	client := graphql.NewClient(endpoint)
 	req := graphql.NewRequest(getBalancesQuery)
