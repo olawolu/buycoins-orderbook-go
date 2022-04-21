@@ -12,7 +12,7 @@ import (
 //alternatively, you could pass in your API credentials into a global variable like so;
 //var authorize = orderbooks.Buycoins(blahburibdblahbeubblah, blahblahblah)
 //this eliminates the need to call godotenv.Load in the main function and
-//would permit a global use of the orderBooks.configCredentials
+//would permit a global use of the orderBooks.ConfigCredentials
 
 func main() {
 
