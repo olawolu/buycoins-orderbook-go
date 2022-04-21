@@ -1,22 +1,21 @@
 package main
 
 import (
-	"github.com/buycoinsresearch/buycoins-orderbook-go"
-	"github.com/joho/godotenv"
-	"os"
-	"log"
 	"fmt"
+	"log"
+	"os"
+
+	orderbooks "github.com/buycoinsresearch/buycoins-orderbook-go"
+	"github.com/joho/godotenv"
 )
 
 //alternatively, you could pass in your API credentials into a global variable like so;
 //var authorize = orderbooks.Buycoins(blahburibdblahbeubblah, blahblahblah)
-//this eliminates the need to call godotenv.Load in the main function and  
+//this eliminates the need to call godotenv.Load in the main function and
 //would permit a global use of the orderBooks.configCredentials
 
-
-
 func main() {
-	
+
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal(err)
@@ -45,7 +44,7 @@ func main() {
 
 	fmt.Printf("%+v\n", cancelOrder)
 
-	getProOrderFee,err := authorize.GetProOrderFees("market_order", "btc_usdt", "sell", 0.001)
+	getProOrderFee, err := authorize.GetProOrderFees("market_order", "btc_usdt", "sell", 0.001)
 	if err != nil {
 		log.Println(err)
 	}
@@ -72,4 +71,11 @@ func main() {
 	}
 
 	fmt.Printf("%+v\n", getDepositLink)
+
+	getBalance, err := authorize.GetBalances("bitcoin")
+	if err != nil {
+		log.Println(err)
+	}
+
+	fmt.Printf("%+v\n", getBalance)
 }
