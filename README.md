@@ -240,6 +240,24 @@ func main () {
 	fmt.Printf("%+v\n", getDepositLink)
 ```
 
+### Get Balance 
+The function GetBalances takes in only one parameter:
+- The cryptocurrency you wish to get the balance for.
+- Note that you can't fetch all balances with this method
+
+Example:
+
+```go
+...
+
+func main () {
+  getBalance, err := authorize.GetBalance("bitcoin")
+	if err != nil {
+		log.Println(err)
+	}
+
+	fmt.Printf("%+v\n", getDepositLink)
+```
 
 
 >**NOTE**<br/>
