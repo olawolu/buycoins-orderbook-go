@@ -72,7 +72,7 @@ func main() {
 
 	fmt.Printf("%+v\n", getDepositLink)
 
-	getBalance, err := authorize.GetBalances("bitcoin")
+	getBalance, err := authorize.GetBalance("bitcoin")
 	if err != nil {
 		log.Println(err)
 	}
