@@ -52,32 +52,7 @@ func (config configCredentials) GetPairs() ([]byte, error) {
 
 func (config configCredentials) GetOrders(coinPair, status, side string) (getProOrders, error) {
 	client := graphql.NewClient(endpoint)
-	req := graphql.NewRequest(`
-		query ($pair_: Pair!, $status_: ProOrderStatus!, $side_: OrderSide!) {
-			getProOrders (pair:$pair_, status:$status_, side:$side_) {
-				edges {
-				  node {
-					id
-					pair
-					price
-					side
-					status
-					timeInForce
-					orderType
-					fees
-					filled
-					total
-					initialBaseQuantity
-					initialQuoteQuantity
-					remainingBaseQuantity
-					remainingQuoteQuantity
-					meanExecutionPrice
-					engineMessage
-				  }
-    			}
-			}
-		}
-	`)
+	req := graphql.NewRequest(getProOrdersQuery)
 	req.Var("pair_", coinPair)
 	req.Var("status_", status)
 	req.Var("side_", side)
@@ -121,28 +96,7 @@ func (config configCredentials) GetOrders(coinPair, status, side string) (getPro
 
 func (config configCredentials) CancelOrder(id string) (cancelOrder, error) {
 	client := graphql.NewClient(endpoint)
-	req := graphql.NewRequest(`
-			mutation($id: ID!) {
-				cancelOrder(proOrder: $id){
-				id
-				pair
-				price
-				side
-				status
-				timeInForce
-				orderType
-				fees
-				filled
-				total
-				initialBaseQuantity
-				initialQuoteQuantity
-				remainingBaseQuantity
-				remainingQuoteQuantity
-				meanExecutionPrice
-				engineMessage
-				}
-			}
-	`)
+	req := graphql.NewRequest(cancelOrderQuery)
 
 	req.Var("id", id)
 	req.Header.Set("Authorization", config.basicAuth)
@@ -198,16 +152,7 @@ func (config configCredentials) CancelOrder(id string) (cancelOrder, error) {
 
 func (config configCredentials) GetProOrderFees(orderType string, pair string, side string, amount float64) (getProOrderFees, error) {
 	client := graphql.NewClient(endpoint)
-	req := graphql.NewRequest(`
-		query($orderType_: OrderMatchingEngineOrder!, $pair_: Pair!, $side_: OrderSide!, $amount_: BigDecimal!) {
-			getProOrderFees(orderType: $orderType_, pair: $pair_, side: $side_, amount: $amount_){
-			fee
-			baseCurrencyTotal
-			quoteCurrencyTotal
-			price
-			}
-		}
-	`)
+	req := graphql.NewRequest(getProOrderFeesQuery)
 
 	req.Var("orderType_", orderType)
 	req.Var("pair_", pair)
@@ -240,28 +185,7 @@ func (config configCredentials) GetProOrderFees(orderType string, pair string, s
 
 func (config configCredentials) PostProMarketOrder(pair string, quantity float64, side string) (postProMarketOrder, error) {
 	client := graphql.NewClient(endpoint)
-	req := graphql.NewRequest(`
-		mutation($pair_: Pair!, $quantity_: BigDecimal!, $side_: OrderSide!) {
-			postProMarketOrder(pair: $pair_, quantity: $quantity_, side: $side_){
-			id
-			pair
-			price
-			side
-			status
-			timeInForce
-			orderType
-			fees
-			filled
-			total
-			initialBaseQuantity
-			initialQuoteQuantity
-			remainingBaseQuantity
-			remainingQuoteQuantity
-			meanExecutionPrice
-			engineMessage
-			}
-		}
-	`)
+	req := graphql.NewRequest(postProMarketOrderQuery)
 
 	req.Var("pair_", pair)
 	req.Var("quantity_", quantity)
@@ -318,28 +242,7 @@ func (config configCredentials) PostProMarketOrder(pair string, quantity float64
 
 func (config configCredentials) PostProLimitOrder(pair string, quantity float64, price float64, side string, timeInForce string) (LimitOrder, error) {
 	client := graphql.NewClient(endpoint)
-	req := graphql.NewRequest(`
-		mutation($pair_: Pair!, $quantity_: BigDecimal!, $price_: BigDecimal! $side_: OrderSide!, $timeInForce_: TimeInForce!) {
-			postProLimitOrder(pair: $pair_, quantity: $quantity_, price: $price_ side: $side_, timeInForce: $timeInForce_){
-			id
-			pair
-			price
-			side
-			status
-			timeInForce
-			orderType
-			fees
-			filled
-			total
-			initialBaseQuantity
-			initialQuoteQuantity
-			remainingBaseQuantity
-			remainingQuoteQuantity
-			meanExecutionPrice
-			engineMessage
-			}
-		}
-	`)
+	req := graphql.NewRequest(postProLimitOrderQuery)
 
 	req.Var("pair_", pair)
 	req.Var("quantity_", quantity)
@@ -398,21 +301,7 @@ func (config configCredentials) PostProLimitOrder(pair string, quantity float64,
 
 func (config configCredentials) GetDepositLink(amount float64) (getDepositLink, error) {
 	client := graphql.NewClient(endpoint)
-	req := graphql.NewRequest(`
-		mutation ($amount: BigDecimal!) {
-			createSendCashPayDeposit(amount: $amount){
-				amount
-				createdAt
-				fee
-				id
-				link
-				reference
-				status
-				totalAmount
-				type
-			}
-		}
-	`)
+	req := graphql.NewRequest(getDepositLinkQuery)
 	req.Var("amount", amount)
 	req.Header.Set("Authorization", config.basicAuth)
 	ctx := context.Background()
@@ -446,5 +335,32 @@ func (config configCredentials) GetDepositLink(amount float64) (getDepositLink, 
 		Status:      res.CreateSendcashPayDeposit.Status,
 		TotalAmount: res.CreateSendcashPayDeposit.TotalAmount,
 		Type:        res.CreateSendcashPayDeposit.Type,
+	}, nil
+}
+
+// Get balance should be used to fetch the balance for one cryptocurrency
+func (config configCredentials) GetBalances(crypto string) (getBalances, error) {
+	var err error
+	client := graphql.NewClient(endpoint)
+	req := graphql.NewRequest(getBalancesQuery)
+	req.Var("crypto", crypto)
+	req.Header.Set("Authorization", config.basicAuth)
+	ctx := context.Background()
+	res := struct {
+		GetBalances [] struct {
+			Id string
+			Cryptocurrency string
+			ConfirmedBalance string
+		}
+	}{}
+	if err = client.Run(ctx, req, &res); err != nil {
+		log.Println(err)
+		return getBalances{}, err
+	}
+	log.Println(res)
+	return getBalances{
+		Id: res.GetBalances[0].Id,
+		Cryptocurrency: res.GetBalances[0].Cryptocurrency,
+		ConfirmedBalance: res.GetBalances[0].ConfirmedBalance,
 	}, nil
 }

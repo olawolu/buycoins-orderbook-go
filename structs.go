@@ -98,3 +98,9 @@ type getDepositLink struct {
 	TotalAmount string
 	Type        string
 }
+
+type getBalances struct {
+	Id               string
+	Cryptocurrency   string
+	ConfirmedBalance string
+}
