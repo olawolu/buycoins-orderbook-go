@@ -12,18 +12,18 @@ import (
 
 const endpoint = "https://backend.buycoins.tech/api/graphql"
 
-type configCredentials struct {
+type ConfigCredentials struct {
 	basicAuth string
 }
 
-func Buycoins(publicKey, secretKey string) configCredentials {
+func Buycoins(publicKey, secretKey string) ConfigCredentials {
 	auth := "Basic " + b64.URLEncoding.EncodeToString([]byte(publicKey+":"+secretKey))
-	return configCredentials{
+	return ConfigCredentials{
 		basicAuth: auth,
 	}
 }
 
-func (config configCredentials) GetPairs() ([]byte, error) {
+func (config ConfigCredentials) GetPairs() ([]byte, error) {
 	client := graphql.NewClient(endpoint)
 	req := graphql.NewRequest(`
 		query {
@@ -50,7 +50,7 @@ func (config configCredentials) GetPairs() ([]byte, error) {
 	return pairs, nil
 }
 
-func (config configCredentials) GetOrders(coinPair, status, side string) (getProOrders, error) {
+func (config ConfigCredentials) GetOrders(coinPair, status, side string) (getProOrders, error) {
 	client := graphql.NewClient(endpoint)
 	req := graphql.NewRequest(getProOrdersQuery)
 	req.Var("pair_", coinPair)
@@ -94,7 +94,7 @@ func (config configCredentials) GetOrders(coinPair, status, side string) (getPro
 	}, nil
 }
 
-func (config configCredentials) CancelOrder(id string) (cancelOrder, error) {
+func (config ConfigCredentials) CancelOrder(id string) (cancelOrder, error) {
 	client := graphql.NewClient(endpoint)
 	req := graphql.NewRequest(cancelOrderQuery)
 
@@ -150,7 +150,7 @@ func (config configCredentials) CancelOrder(id string) (cancelOrder, error) {
 
 }
 
-func (config configCredentials) GetProOrderFees(orderType string, pair string, side string, amount float64) (getProOrderFees, error) {
+func (config ConfigCredentials) GetProOrderFees(orderType string, pair string, side string, amount float64) (getProOrderFees, error) {
 	client := graphql.NewClient(endpoint)
 	req := graphql.NewRequest(getProOrderFeesQuery)
 
@@ -183,7 +183,7 @@ func (config configCredentials) GetProOrderFees(orderType string, pair string, s
 	}, nil
 }
 
-func (config configCredentials) PostProMarketOrder(pair string, quantity float64, side string) (postProMarketOrder, error) {
+func (config ConfigCredentials) PostProMarketOrder(pair string, quantity float64, side string) (postProMarketOrder, error) {
 	client := graphql.NewClient(endpoint)
 	req := graphql.NewRequest(postProMarketOrderQuery)
 
@@ -240,7 +240,7 @@ func (config configCredentials) PostProMarketOrder(pair string, quantity float64
 	}, nil
 }
 
-func (config configCredentials) PostProLimitOrder(pair string, quantity float64, price float64, side string, timeInForce string) (LimitOrder, error) {
+func (config ConfigCredentials) PostProLimitOrder(pair string, quantity float64, price float64, side string, timeInForce string) (LimitOrder, error) {
 	client := graphql.NewClient(endpoint)
 	req := graphql.NewRequest(postProLimitOrderQuery)
 
@@ -299,7 +299,7 @@ func (config configCredentials) PostProLimitOrder(pair string, quantity float64,
 	}, nil
 }
 
-func (config configCredentials) GetDepositLink(amount float64) (getDepositLink, error) {
+func (config ConfigCredentials) GetDepositLink(amount float64) (getDepositLink, error) {
 	client := graphql.NewClient(endpoint)
 	req := graphql.NewRequest(getDepositLinkQuery)
 	req.Var("amount", amount)
@@ -339,7 +339,7 @@ func (config configCredentials) GetDepositLink(amount float64) (getDepositLink, 
 }
 
 // Get balance should be used to fetch the balance for one cryptocurrency
-func (config configCredentials) GetBalance(crypto string) (getBalances, error) {
+func (config ConfigCredentials) GetBalance(crypto string) (getBalances, error) {
 	var err error
 	client := graphql.NewClient(endpoint)
 	req := graphql.NewRequest(getBalancesQuery)
